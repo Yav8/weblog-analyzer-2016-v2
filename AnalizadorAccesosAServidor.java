@@ -115,9 +115,49 @@ public class AnalizadorAccesosAServidor
         return paginaWebMasSolicitada;
     }
     
+    /**
+     * Devuelve la dirección IP del cliente que ha realizado el mayor numero de 
+     * accesos exitosos al servidor. Si no hay datos de acceso al servidor, 
+     * muestra por pantalla dicho acontecimiento.
+     * @return Devuelve un String que contiene la dirección IP del cliente que
+     * mas ha accedido al servidor. Si no hay datos de acceso, devuelve null. 
+     * En caso de empate se muestra el cliente con la IP más alta.
+     */    
     public String clienteConMasAccesosExitosos()
     {
-        return "";
+        String direccionIPDelClienteQueMasHaAccedidoAlServidorDeFormaExitosa = null;
+        HashSet<Acceso> conjuntoDeAccesos = new HashSet<>();
+
+        for(Acceso acceso : accesos) {
+            conjuntoDeAccesos.add(acceso);
+        }
+        
+        int numeroDeVecesMasAltoQueSeHaRepetidoUnaDireccionIPQueHaAccedidoAlServidorDeFormaExitosa = 0;
+        int direccionIPMasAlta = 0;
+        
+        for(Acceso acceso1 : conjuntoDeAccesos) {
+            int numeroDeVecesQueSeRepiteUnaDireccionIPQueHaAccedidoAlServidorDeFormaExitosa = 0;
+            for(Acceso acceso2 : accesos) {
+                if(acceso1.getDireccionIP().equals(acceso2.getDireccionIP()) && Integer.parseInt(acceso2.getCodigo().substring(0, 1)) != 4) {
+                    numeroDeVecesQueSeRepiteUnaDireccionIPQueHaAccedidoAlServidorDeFormaExitosa += 1;
+                }
+            }
+            String[] direccionIPSeparada = acceso1.getDireccionIP().replace(".", " ").split(" ");
+            if(numeroDeVecesQueSeRepiteUnaDireccionIPQueHaAccedidoAlServidorDeFormaExitosa > numeroDeVecesMasAltoQueSeHaRepetidoUnaDireccionIPQueHaAccedidoAlServidorDeFormaExitosa) {
+                numeroDeVecesMasAltoQueSeHaRepetidoUnaDireccionIPQueHaAccedidoAlServidorDeFormaExitosa = numeroDeVecesQueSeRepiteUnaDireccionIPQueHaAccedidoAlServidorDeFormaExitosa;
+                direccionIPDelClienteQueMasHaAccedidoAlServidorDeFormaExitosa = acceso1.getDireccionIP();
+                direccionIPMasAlta = Integer.parseInt(direccionIPSeparada[3]);
+            }
+            else if (numeroDeVecesQueSeRepiteUnaDireccionIPQueHaAccedidoAlServidorDeFormaExitosa == numeroDeVecesMasAltoQueSeHaRepetidoUnaDireccionIPQueHaAccedidoAlServidorDeFormaExitosa && direccionIPMasAlta < Integer.parseInt(direccionIPSeparada[3])) {
+                direccionIPDelClienteQueMasHaAccedidoAlServidorDeFormaExitosa = acceso1.getDireccionIP();                
+            }
+        }
+        
+        if(direccionIPDelClienteQueMasHaAccedidoAlServidorDeFormaExitosa == null) {
+            System.out.println("No hay datos de acceso al servidor.");
+        }
+
+        return direccionIPDelClienteQueMasHaAccedidoAlServidorDeFormaExitosa;
     }
 
 
