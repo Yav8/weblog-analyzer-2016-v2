@@ -14,19 +14,23 @@ public class Acceso
     
     /**
      * Constructor para objetos de la clase Acceso.
-     * @param momentoDeAccesoAlServidor El texto que contiene la 
-     * fecha y hora exacta en la que el cliente ha accedido al 
-     * servidor. Debe tener el siguiente formato para que la clase 
-     * AnalizadorAccesosAServidor pueda leer archivos con este contenido: 
-     * "aaaa mm hh dd mm".
+     * @param datosDeAccesoAlServidor El texto que contiene la 
+     * direccion IP del cliente, el momento exacto al que ha accedido 
+     * al servidor, la pagina web que solicita y el codigo HTTP con el 
+     * que responde el servidor. Debe tener el siguiente formato para 
+     * que la clase AnalizadorAccesosAServidor pueda leer archivos con 
+     * este contenido: 
+     * "direccion_IP [aaaa mm dd hh mm] ruta_de_la_pagina_web codigo".
+     * Ejemplo: "91.244.73.61 [2016 01 01 10 56] instituto/normativa.html 403".
      */
-    public Acceso(String momentoDeAccesoAlServidor)
+    public Acceso(String datosDeAccesoAlServidor)
     {
-        ano = Integer.parseInt(momentoDeAccesoAlServidor.substring(0, 4));
-        mes = Integer.parseInt(momentoDeAccesoAlServidor.substring(5, 7));
-        dia = Integer.parseInt(momentoDeAccesoAlServidor.substring(8, 10));
-        hora = Integer.parseInt(momentoDeAccesoAlServidor.substring(11, 13));
-        minutos = Integer.parseInt(momentoDeAccesoAlServidor.substring(14, 16));
+        String[] datosDeAccesoSeparados = datosDeAccesoAlServidor.split(" ");
+        ano = Integer.parseInt(datosDeAccesoSeparados[1].substring(1,5));
+        mes = Integer.parseInt(datosDeAccesoSeparados[2]);
+        dia = Integer.parseInt(datosDeAccesoSeparados[3]);
+        hora = Integer.parseInt(datosDeAccesoSeparados[4]);
+        minutos = Integer.parseInt(datosDeAccesoSeparados[5].substring(0,2));
     }
     
     /**
