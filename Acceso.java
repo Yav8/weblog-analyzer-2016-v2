@@ -11,6 +11,9 @@ public class Acceso
     private int dia;
     private int hora;
     private int minutos;
+    private String paginaWeb;
+    private String direccionIP;
+    private String codigo;
     
     /**
      * Constructor para objetos de la clase Acceso.
@@ -31,6 +34,9 @@ public class Acceso
         dia = Integer.parseInt(datosDeAccesoSeparados[3]);
         hora = Integer.parseInt(datosDeAccesoSeparados[4]);
         minutos = Integer.parseInt(datosDeAccesoSeparados[5].substring(0,2));
+        paginaWeb = datosDeAccesoSeparados[6];
+        direccionIP = datosDeAccesoSeparados[0];
+        codigo = datosDeAccesoSeparados[7];
     }
     
     /**
@@ -77,4 +83,28 @@ public class Acceso
     {
         return minutos;
     }
+    
+    /**
+     * Devuelve la pagina web a la que ha accedido el usuario.
+     * @return Devuelve un String que es la pagina web.
+     */
+    public String getPaginaWeb() {
+        return paginaWeb;
+    }
+    
+    /**
+     * Devuelve la direccion IP con la que ha accedido el cliente.
+     * @return Devuelve un String que es la direccion IP.
+     */
+    public String getDireccionIP() {
+        return direccionIP;
+    }
+    
+    /**
+     * Devuelve el codigo HTTP con el que responde el servidor.
+     * @return Devuelve un String que es el codigo.
+     */
+    public String getCodigo() {
+        return codigo;
+    }    
 }
