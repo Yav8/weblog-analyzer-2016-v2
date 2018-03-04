@@ -2,17 +2,28 @@ import java.io.File;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * La clase AnalizadorAccesosAServidor analiza los accesos
+ * producidos al servidor.
+ * @author Javier de Cea Dominguez.
+ * @version 2018.03.03
+ */
 public class AnalizadorAccesosAServidor
 {
     private ArrayList<Acceso> accesos;
     
-    
+    /**
+     * Constructor para objetos de la clase AnalizadorAccesosAServidor.
+     */
     public AnalizadorAccesosAServidor() 
     {
         accesos = new ArrayList<>();
     }
     
-    
+    /**
+     * Lee el archivo de log introducido por parametro y guarda sus datos.
+     * @param archivo El nombre del archivo de log que va a ser leido.
+     */    
     public void analizarArchivoDeLog(String archivo)
     {
         accesos.clear();
@@ -20,13 +31,8 @@ public class AnalizadorAccesosAServidor
         try {
             Scanner sc = new Scanner(archivoALeer);
             while (sc.hasNextLine()) {
-                String lineaLeida = sc.nextLine();               
-                String[] elementosLinea = lineaLeida.split(" ");
-                Acceso accesoActual = new Acceso(Integer.parseInt(elementosLinea[0]), 
-                                                 Integer.parseInt(elementosLinea[1]), 
-                                                 Integer.parseInt(elementosLinea[2]),
-                                                 Integer.parseInt(elementosLinea[3]), 
-                                                 Integer.parseInt(elementosLinea[4]));               
+                String lineaLeida = sc.nextLine();                               
+                Acceso accesoActual = new Acceso(lineaLeida);               
                 
                 accesos.add(accesoActual);
             }
@@ -37,7 +43,12 @@ public class AnalizadorAccesosAServidor
         }
     }
     
-    
+    /**
+     * Devuelve la hora con mas accesos. Si hay empate devuelve la mas alta.
+     * @return Devuelve un int que equivale a la hora con mas accesos.
+     * Si hay empate, devuelve la hora mas alta, o si no hay datos de 
+     * acceso devuelve -1.
+     */    
     public int obtenerHoraMasAccesos() 
     {
         int valorADevolver = -1;
