@@ -11,6 +11,7 @@ public class Acceso
     private int dia;
     private int hora;
     private int minutos;
+    private String paginaWeb;
     
     /**
      * Constructor para objetos de la clase Acceso.
@@ -31,6 +32,7 @@ public class Acceso
         dia = Integer.parseInt(datosDeAccesoSeparados[3]);
         hora = Integer.parseInt(datosDeAccesoSeparados[4]);
         minutos = Integer.parseInt(datosDeAccesoSeparados[5].substring(0,2));
+        paginaWeb = datosDeAccesoSeparados[6];
     }
     
     /**
@@ -77,4 +79,12 @@ public class Acceso
     {
         return minutos;
     }
+    
+    /**
+     * Devuelve la pagina web a la que ha accedido el usuario.
+     * @return Devuelve un String que es la pagina web.
+     */
+    public String getPaginaWeb() {
+        return paginaWeb;
+    }    
 }
